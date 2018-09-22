@@ -1,1 +1,8 @@
+## nodule modules
 node_modules
+
+## keys
+config/keys.js
+
+## others
+package-lock.json
