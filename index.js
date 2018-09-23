@@ -29,6 +29,7 @@ app.use(passport.session())
 // routes
 require('./routes/authRoutes')(app);
 
+
 app.get('/', (req, res) => {
     res.send({ hello: 'hello' })
 })
