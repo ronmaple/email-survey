@@ -21,17 +21,15 @@ passport
         callbackURL: '/auth/google/callback',
         proxy: true // callback url http -> https on heroku
     }, 
-    (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleId: profile.id })
-            .then((existingUser) => {
-                if (existingUser) {
-                    done(null, existingUser)
-                } else {
-                    new User({ googleId: profile.id })
-                        .save()
-                        .then(user => done(null, user))
-                }
-            })
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({ googleId: profile.id })
+
+        if (existingUser) {
+            return done(null, existingUser)
+        }
+        
+        const user = await new User({ googleId: profile.id }).save();
+        done(null, user)
         
     })
 )
